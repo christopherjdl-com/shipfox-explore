@@ -1,4 +1,5 @@
 import base64
+import html
 import os
 from typing import Optional
 
@@ -37,7 +38,7 @@ def create_app() -> Flask:
     @app.get("/")
     def index() -> str:
         guest = request.args.get("guest")
-        greeting = get_greeting(guest)
+        greeting = html.escape(get_greeting(guest))
         greeting_style = "" if greeting else 'style="display:none;"'
         return (
             template.replace("{{greeting}}", greeting)
